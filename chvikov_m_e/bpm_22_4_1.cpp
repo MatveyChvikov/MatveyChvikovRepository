@@ -1,60 +1,37 @@
 ﻿
+
 #include <iostream>
-#include <array>
-#include <vector>
 #include <cmath>
 
 int main()
 {
-	double x = 0.1;
-	double delt = 0.05;
-	double eps = 0.0001;
-	int i = 0;
-	int iceff = 0;
-	double chisl = 0;
-	double znam = 1;
+	double chisl = 0.0, func = 1.0, x = 0.1, delt = 0.05, eps = 0.0001, sum = 0.0;
+	int i = 0, j = 0, n = 1000, factor = 1, znam = 0;
 
-		chisl = pow(x, 2 * i);
-		for (i = 0; i < 2 * iceff; i++)
-			znam = 1 * i;
-}
-
-/*
-double x = 0.1;
-double delt = 0.05;
-double eps = 0.0001;
-int i = 0;
-int iceff = 0;
-double chisl = 0;
-double znam = 1;
-while (x <= 1)
-{
-	chisl = pow(x, 2 * i);
-	for (i = 0; i < 2 * iceff; i++)
-		znam = 1 * i;
-
-
-
-
-	x = x + delt;
-	iceff += 1;
-}
-*/
-
-
-/*
-int n;
-int i;
-int res;
-
-cin >> n;
-res = 1;
-for (i = 1; i <= n; i++) {
-	res = res * i;
-}
-cout << res;
-*/
-//const int max = 100;
-	//std::vector <int> a(max, -1);
-	//const int nmax = 50;
-	//array <int, nmax> a{ 0 };
+	for (x = 0.1; x <= 1.05; x += delt)
+	{
+		i = 0;
+		sum = 0.0;
+		func = 1.0;
+		while (func >= eps)
+		{
+			if (i == 0)
+				func = 1;
+			if (i > 0)
+			{
+				chisl = pow(x, 2 * i);
+				factor = 2 * i;
+				znam = 1;
+				for (j = 1; j <= factor; j++)
+				{
+					znam = znam * j;
+				}
+				func = chisl / znam;
+			}
+			sum += func;
+			if (func < eps)
+				break;
+			std::cout << " i = " << i << "  x = " << x << "  sum =  " << sum << '\n';
+			i += 1;
+		}
+	}
